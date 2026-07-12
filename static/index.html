@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Support Ticket Analyzer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Панель оператора</p>
+        <h1>AI Support Ticket Analyzer</h1>
+        <p class="header-description">
+          Анализ обращений клиентов, подготовка черновика ответа и просмотр последних обработанных заявок.
+        </p>
+      </div>
+      <div class="service-state" aria-label="Состояние сервиса">
+        <span class="state-dot" aria-hidden="true"></span>
+        OpenRouter
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="work-area" aria-labelledby="analyze-heading">
+        <div class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Новое обращение</p>
+              <h2 id="analyze-heading">Анализ текста</h2>
+            </div>
+          </div>
+
+          <form id="ticket-form" class="ticket-form" novalidate>
+            <div class="field-head">
+              <label for="ticket-text">Текст обращения клиента</label>
+              <span id="char-count" class="char-count">0 / 5000</span>
+            </div>
+            <textarea
+              id="ticket-text"
+              name="ticketText"
+              rows="12"
+              maxlength="5000"
+              autocomplete="off"
+              placeholder="Вставьте обращение клиента..."
+              aria-describedby="form-message char-count"
+            ></textarea>
+
+            <div class="form-actions">
+              <p id="form-message" class="form-message" aria-live="polite"></p>
+              <button id="analyze-button" class="primary-button" type="submit">
+                Проанализировать
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <section class="panel result-panel" aria-labelledby="result-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">Результат</p>
+              <h2 id="result-heading">Карточка анализа</h2>
+            </div>
+            <button id="copy-reply-button" class="secondary-button" type="button" hidden>
+              Копировать ответ
+            </button>
+          </div>
+
+          <div id="result-empty" class="empty-state">
+            Результат появится после анализа обращения.
+          </div>
+
+          <article id="result-card" class="result-card" aria-live="polite" hidden>
+            <dl class="metrics-grid">
+              <div>
+                <dt>Категория</dt>
+                <dd id="result-category"></dd>
+              </div>
+              <div>
+                <dt>Приоритет</dt>
+                <dd>
+                  <span id="result-priority" class="priority-badge"></span>
+                </dd>
+              </div>
+              <div class="wide">
+                <dt>Резюме</dt>
+                <dd id="result-summary"></dd>
+              </div>
+              <div class="wide">
+                <dt>Рекомендуемый ответ</dt>
+                <dd id="result-reply" class="reply-text"></dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+      </section>
+
+      <aside class="panel history-panel" aria-labelledby="history-heading">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Журнал</p>
+            <h2 id="history-heading">Последние обращения</h2>
+          </div>
+          <button id="refresh-history-button" class="ghost-button" type="button">
+            Обновить
+          </button>
+        </div>
+
+        <p id="history-message" class="history-message" aria-live="polite"></p>
+        <div id="history-list" class="history-list"></div>
+      </aside>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
